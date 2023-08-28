@@ -22,6 +22,13 @@ public class Reservation {
 	}
 	
 	public void updateDates(Date checkIn, Date checkOut) {
+		Date now = new Date();
+		if(this.checkIn.before(now) || this.checkOut.before(now)) {
+			throw new IllegalArgumentException("Reservation dates for update must be future dates");
+		}
+		if(!this.checkOut.after(this.checkIn)) {
+			throw new IllegalArgumentException("Check-out date must be after check-in date");
+		}
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 	}
